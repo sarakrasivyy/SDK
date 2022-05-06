@@ -9,7 +9,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.coraline.databinding.ItemUserBinding
 
-class UserAdapter(private val users: List<user>) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
+class UserAdapter(private val users: List<user>, private val listener:Clicheck)
+    : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
    private lateinit var context: Context
 
@@ -33,8 +34,9 @@ class UserAdapter(private val users: List<user>) : RecyclerView.Adapter<UserAdap
        // }
         // agrupacion
         with(holder){
+            setlistener(user, position+1)
             binding.tvOrde.text= (position+ 1).toString()
-            binding.tvname.text=user.name+ " "+ user.lastname
+            binding.tvname.text=user.getfullName()
             binding
             Glide.with(context).load(user.url).diskCacheStrategy(DiskCacheStrategy.ALL).centerCrop().circleCrop().into(binding.imagephoto)
        }
@@ -52,5 +54,9 @@ class UserAdapter(private val users: List<user>) : RecyclerView.Adapter<UserAdap
         val binding=ItemUserBinding.bind(view)
       //  fun bind(user: user) {
           //  view.tvname.text = user.name
+
+        fun setlistener(user: user, position: Int){
+            binding.root.setOnClickListener { listener.clicheck(user, position) }
+        }
         }
     }

@@ -1,12 +1,17 @@
 package com.example.coraline
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coraline.databinding.ActivityMainBinding
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.textfield.TextInputEditText
 
-class MainActivity: AppCompatActivity() {
+class MainActivity: AppCompatActivity(), Clicheck {
 
 
     //instancia del adaptador
@@ -20,11 +25,43 @@ class MainActivity: AppCompatActivity() {
         setContentView(binding.root)
         //  setContentView(R.layout.activity_main)
 
-        userAdapter = UserAdapter(getUsers())
+        // almacenamiento de pequeñas cantidades
+        val preferences=getPreferences(Context.MODE_PRIVATE)
+
+        //traer los datos con valor boolean
+        //                                     nombre de la variable
+        val isFirstTime=preferences.getBoolean(getString(R.string.sp_firt_time), true)
+
+        //imprimir mensage
+        Log.i("SP", "${getString(R.string.sp_firt_time)}= $isFirstTime")
+
+         // insertar datos y verifiacion
+        if(isFirstTime){
+
+            // inflar informacion
+            val dialogview=layoutInflater.inflate(R.layout.dalogo_registro, null)
+            MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.dialogo_user)
+                .setView(dialogview)
+                    // no cancelar
+                .setCancelable(false)
+                .setPositiveButton(R.string.messagetrue, { dialogInterface, i ->
+                    val username=dialogview.findViewById<TextInputEditText>(R.id.tiusername).text.toString()
+
+
+            // funcion de alcanse
+            with(preferences.edit()){
+                putBoolean(getString(R.string.sp_firt_time), false)
+                putString(getString(R.string.sp_username), username).apply()
+            }
+        }).show()
+    }
+
+        userAdapter = UserAdapter(getUsers(), this)
         linearLayoutManege = LinearLayoutManager(this)
 
-
-    binding.recycle.apply {
+        binding.recycle.apply {
+        setHasFixedSize(true)
         layoutManager=linearLayoutManege
         adapter=userAdapter
     }
@@ -51,4 +88,8 @@ class MainActivity: AppCompatActivity() {
         users.add(x7)
         return users
     }
+    override fun clicheck(user: user, position: Int) {
+        Toast.makeText(this,"$position ${user.getfullName() }", Toast.LENGTH_SHORT).show()
     }
+    }
+

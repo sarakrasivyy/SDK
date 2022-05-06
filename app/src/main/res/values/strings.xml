@@ -3,4 +3,10 @@
     <string name="nom_comple">nombre completo</string>
     <string name="description_user">imagen de usuario</string>
     <string name="ape_las">apellido</string>
+    <string name="sp_firt_time">firt time</string>
+    <string name="messagetrue">registrar</string>
+    <string name="dialogo_user">crear usuario ;)</string>
+    <string name="helper_username">obligatorio</string>
+    <string name="hint_username">nombre de usuario</string>
+    <string name="sp_username">user_name_is</string>
 </resources>
