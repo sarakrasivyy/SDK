@@ -3,14 +3,26 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="@dimen/common_padding_default"
+    android:layout_height="@dimen/card_height"
+
     >
+
+    <ImageView
+        android:id="@+id/imagephoto"
+        android:layout_width="@dimen/card_imagin"
+        android:layout_height="@dimen/card_imagin"
+        android:contentDescription="@string/description_user"
+        android:layout_margin="@dimen/common_padding_min"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <TextView
         android:id="@+id/tvOrde"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceCaption"
+        android:layout_margin="@dimen/common_padding_middle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -20,10 +32,23 @@
         android:id="@+id/tvname"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:textAppearance="?attr/textAppearanceSubtitle2"
+        android:layout_marginHorizontal="@dimen/common_padding_default"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/tvOrde"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imagephoto"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@string/nom_comple" />
+
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/color_divisor"
+        app:layout_constraintStart_toStartOf="@id/tvname"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

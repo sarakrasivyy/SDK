@@ -1,18 +1,21 @@
 package com.example.coraline
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.coraline.databinding.ItemUserBinding
 
 class UserAdapter(private val users: List<user>) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
-   // private lateinit var context: Context
+   private lateinit var context: Context
 
     //infla "dibuja"
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-
+        context = parent.context
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_user,parent,false)
        //val view = ItemUserBinding.inflate(LayoutInflater.from(parent.context) )
         return ViewHolder(view)
@@ -30,8 +33,10 @@ class UserAdapter(private val users: List<user>) : RecyclerView.Adapter<UserAdap
        // }
         // agrupacion
         with(holder){
-            binding.tvOrde.text= user.id.toString()
-            binding.tvname.text=user.name
+            binding.tvOrde.text= (position+ 1).toString()
+            binding.tvname.text=user.name+ " "+ user.lastname
+            binding
+            Glide.with(context).load(user.url).diskCacheStrategy(DiskCacheStrategy.ALL).centerCrop().circleCrop().into(binding.imagephoto)
        }
 
        // holder.bind(
