@@ -1,34 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/common_padding_default">
+    android:layout_margin="@dimen/common_padding_default"
+    android:orientation="vertical">
 
 
-
-
-<com.google.android.material.textfield.TextInputLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    style="@style/Widget.Material3.AutoCompleteTextView.OutlinedBox.Dense"
-    android:hint="@string/hint_username"
-    app:helperText="@string/helper_username"
-    app:counterEnabled="true"
-    app:counterMaxLength="@integer/max_lengt_username">
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/tiusername"
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.Material3.AutoCompleteTextView.OutlinedBox.Dense"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:maxLength="@integer/max_lengt_username"
-        android:inputType="textPersonName"/>
+        android:hint="@string/hint_username"
+        app:counterEnabled="true"
+        app:counterMaxLength="@integer/max_lengt_username"
+        app:helperText="@string/helper_username">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tiusername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:maxLength="@integer/max_lengt_username" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.Material3.AutoCompleteTextView.OutlinedBox.Dense"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_userlastname"
+        app:counterEnabled="true"
+        app:counterMaxLength="@integer/max_lengt_username"
+        app:helperText="@string/helper_username">
 
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tiuserlastname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:maxLength="@integer/max_lengt_username" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-
-</com.google.android.material.textfield.TextInputLayout>
 
 </LinearLayout>

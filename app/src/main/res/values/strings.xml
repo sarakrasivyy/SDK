@@ -9,4 +9,7 @@
     <string name="helper_username">obligatorio</string>
     <string name="hint_username">nombre de usuario</string>
     <string name="sp_username">user_name_is</string>
+    <string name="username">usuario registrado</string>
+    <string name="hint_userlastname">apellido</string>
+    <string name="submit">xo</string>
 </resources>

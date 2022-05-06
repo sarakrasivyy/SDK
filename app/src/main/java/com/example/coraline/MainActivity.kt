@@ -18,11 +18,18 @@ class MainActivity: AppCompatActivity(), Clicheck {
     private lateinit var userAdapter: UserAdapter
     private lateinit var linearLayoutManege: RecyclerView.LayoutManager
     private lateinit var binding: ActivityMainBinding
+    val users_: MutableList<user> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.btxo.setOnClickListener {
+
+        }
+
+
         //  setContentView(R.layout.activity_main)
 
         // almacenamiento de pequeñas cantidades
@@ -37,6 +44,7 @@ class MainActivity: AppCompatActivity(), Clicheck {
 
          // insertar datos y verifiacion
         if(isFirstTime){
+            binding.btxo.setOnClickListener {
 
             // inflar informacion
             val dialogview=layoutInflater.inflate(R.layout.dalogo_registro, null)
@@ -45,19 +53,46 @@ class MainActivity: AppCompatActivity(), Clicheck {
                 .setView(dialogview)
                     // no cancelar
                 .setCancelable(false)
-                .setPositiveButton(R.string.messagetrue, { dialogInterface, i ->
-                    val username=dialogview.findViewById<TextInputEditText>(R.id.tiusername).text.toString()
+                .setPositiveButton(R.string.messagetrue) { dialogInterface, i ->
+                    val username =
+                        dialogview.findViewById<TextInputEditText>(R.id.tiusername).text.toString()
+                    val userlastname =
+                        dialogview.findViewById<TextInputEditText>(R.id.tiuserlastname).text.toString()
 
 
-            // funcion de alcanse
-            with(preferences.edit()){
-                putBoolean(getString(R.string.sp_firt_time), false)
-                putString(getString(R.string.sp_username), username).apply()
+                    // funcion de alcanse
+                    with(preferences.edit()) {
+                        putBoolean(getString(R.string.sp_firt_time), true)
+                        putString(getString(R.string.sp_username), username).apply()
+                        commit()
+                    }
+                    users_.add(
+                        user((users_.size + 1).toLong(),
+                            username,
+                            userlastname,
+                            "https://ayvisa.es/wp-content/uploads/2021/02/descargar-foto-perfil-instagram.jpg")
+                    )
+                    users_.sortBy { it.name }
+
+                    userAdapter.notifyDataSetChanged()
+                }.show()
+    }} else{
+        val username=preferences.getString(getString(R.string.username),getString(R.string.hint_username))
+            Toast.makeText(this,"Bienvenido $username",Toast.LENGTH_SHORT).show()
+        }
+
+        userAdapter = UserAdapter(getUsers(),listener = { user->
+            Toast.makeText(this," ${user.getfullName() }", Toast.LENGTH_SHORT).show()
+
+            //users_.remove(user)
+
+            users_.removeIf {
+                it.name.first()=='c'
             }
-        }).show()
-    }
 
-        userAdapter = UserAdapter(getUsers(), this)
+            userAdapter.notifyDataSetChanged()
+
+        })
         linearLayoutManege = LinearLayoutManager(this)
 
         binding.recycle.apply {
@@ -69,7 +104,6 @@ class MainActivity: AppCompatActivity(), Clicheck {
     }
 
     private fun getUsers(): MutableList<user> {
-        val users = mutableListOf<user>()
 
         val x1 = user(1, "sara", "blanco", "https://rockcontent.com/es/wp-content/uploads/sites/3/2019/02/foto-de-perfil-para-instagram.png")
         val x4 = user(1, "sara", "blanco", "https://rockcontent.com/es/wp-content/uploads/sites/3/2019/02/foto-de-perfil-para-instagram.png")
@@ -79,14 +113,14 @@ class MainActivity: AppCompatActivity(), Clicheck {
         val x6 = user(3, "camila", "dass", "https://ayvisa.es/wp-content/uploads/2021/02/descargar-foto-perfil-instagram.jpg")
         val x7 = user(3, "camila", "dass", "https://ayvisa.es/wp-content/uploads/2021/02/descargar-foto-perfil-instagram.jpg")
 
-        users.add(x1)
-        users.add(x2)
-        users.add(x3)
-        users.add(x4)
-        users.add(x5)
-        users.add(x6)
-        users.add(x7)
-        return users
+        users_.add(x1)
+        users_.add(x2)
+        users_.add(x3)
+        users_.add(x4)
+        users_.add(x5)
+        users_.add(x6)
+        users_.add(x7)
+        return users_
     }
     override fun clicheck(user: user, position: Int) {
         Toast.makeText(this,"$position ${user.getfullName() }", Toast.LENGTH_SHORT).show()

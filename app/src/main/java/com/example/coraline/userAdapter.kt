@@ -9,7 +9,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.coraline.databinding.ItemUserBinding
 
-class UserAdapter(private val users: List<user>, private val listener:Clicheck)
+class UserAdapter(private val users: List<user>, val listener:(user) -> Unit)
     : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
 
    private lateinit var context: Context
@@ -56,7 +56,7 @@ class UserAdapter(private val users: List<user>, private val listener:Clicheck)
           //  view.tvname.text = user.name
 
         fun setlistener(user: user, position: Int){
-            binding.root.setOnClickListener { listener.clicheck(user, position) }
+            binding.root.setOnClickListener { listener(user) }
         }
         }
     }
